@@ -18,7 +18,7 @@ header("Pragma: no-cache");
 				margin: 0px auto;
 				padding: 0px;
 				background-color: <?php
-					$colors = array('#CC0000', '#CC6600', '#CCCC00', '#00CC00', '#0000CC', '#330099', '#9900CC');
+					$colors = array('#CC0000', '#CC6600', '#CCCC00', '#00CC00', '#0000CC', '#6600CC');
 					echo $colors[array_rand($colors)];
 				?>;
 				color: #FFFFFF;
