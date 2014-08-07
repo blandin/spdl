@@ -77,7 +77,7 @@ header("Pragma: no-cache");
 			Hello, I'm Blastyr
 		</p>
 		<p id="subheading">
-			Nothing here yet. ;)
+			<?php if ((include '/subheading.php') === false) echo 'There is nothing here yet. ;)'; ?>
 		</p>
 		<p id="footer">
 			Visual page design <span class="strike">blatantly stolen</span> lovingly borrowed from <a href="http://nekinie.com/" target="_blank">nekinie.com</a>.
