@@ -15,7 +15,7 @@ header("Pragma: no-cache");
 		<link href="http://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet" type="text/css"/>
 		<style type="text/css">
 			body {
-				margin: 0px auto;
+				margin: 0px;
 				padding: 0px;
 				background-color: <?php
 					$colors = array('#CC0000', '#CC6600', '#CCCC00', '#00CC00', '#0000CC', '#6600CC');
@@ -23,36 +23,31 @@ header("Pragma: no-cache");
 				?>;
 				color: #FFFFFF;
 				font-family: 'Vollkorn', serif;
-				font-size: 12px;
-				line-height: 16px;
+				font-size: 16px;
+				line-height: 20px;
 				font-weight: 400;
 				text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
 			}
 			p {
 				position: absolute;
-				left: 50%;
+				left: 50vw;
 				margin: 0px 0px 0px -240px;
 				padding: 0px;
 				width: 480px;
-				height: 16px;
 				text-align: center;
 			}
 			p#headline {
-				top: 50%;
-				margin-top: -27px;
-				height: 30px;
+				bottom: 50vh;
 				font-size: 26px;
 				line-height: 30px;
 			}
 			p#subheading {
-				top: 50%;
-				margin-top: 4px;
-				height: 20px;
-				font-size: 16px;
-				line-height: 20px;
+				top: 50vh;
 			}
 			p#footer {
 				bottom: 10px;
+				font-size: 12px;
+				line-height: 16px;
 			}
 			a[href] {
 				color: #CCCCFF;
