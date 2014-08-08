@@ -1,53 +1,82 @@
 <?php
-// Prevent caching
-header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-header("Cache-Control: no-cache");
-header("Pragma: no-cache");
-
 // Configuration defaults
 $config = array(
+	'pageTitle' => $_SERVER['SERVER_NAME'],
 	'content' => array(
-		'headline' => 'Hello, I\'m Blastyr',
-		'subheading' => 'There is nothing here yet. ;)',
-		'footer' => 'Visual page design <span class="strike">blatantly stolen</span> lovingly borrowed from <a href="http://nekinie.com/" target="_blank">nekinie.com</a>.'
+		'headline' => 'Hello. This is my page.',
+		'subheading' => 'There is nothing here yet.',
+		'footer' => array(
+			'Visual page design based on <a href="http://nekinie.com/" target="_blank">nekinie.com</a>.',
+			'The code for this page is on <a href="https://github.com/blandin/blastyr.net" target="_blank">GitHub</a>.'
+		)
 	),
 	'backgroundColor' => call_user_func(function () {
 		$colors = array('#CC0000', '#CC6600', '#CCCC00', '#00CC00', '#0000CC', '#6600CC');
 		return $colors[array_rand($colors)];
 	}),
-	'headlinePosition' => 50
+	'headlinePosition' => 50,
+	'allowCache' => true,
+	'gzip' => array(
+		'enabled' => false,
+		'level' => 5,
+		'footer' => 'Gzip compression enabled.'
+	)
 );
 
-// Allows easily setting a variable using an anonymous function
-function setFromFunc(&$cfg, $func) {
-	// If $func is not callable, return
-	if (!is_callable($func)) return;
-	// Call $func() and pass argument of current value of $cfg
-	$cfg = call_user_func($func, $cfg);
-}
+// Start output buffering
+ob_start();
 
 // Load configuration, if it exists
 if (file_exists(dirname(__FILE__) . '/config.php'))
 	include dirname(__FILE__) . '/config.php';
 
-// Validate that headlinePosition is an integer between 10 and 90, otherwise we have problems
-$config['headlinePosition'] = max(10, min(90, (int)$config['headlinePosition']));
+// Gzip compression handler
+function gzipHandler($buffer, $mode) {
+	chdir(dirname(__FILE__));
+	global $config;
+	$gzlevel = (int)$config['gzip']['level'];
+	// Validate configured compression level
+	if ($gzlevel >= 1 && $gzlevel <= 9) $mode = $gzlevel;
+	return ob_gzhandler(trim($buffer), $mode);
+}
+
+// Validate and calculate headline position
+$config['subheadingPosition'] = $config['headlinePosition'];
+$config['subheadingPosition'] = max(10, min(90, (int)$config['subheadingPosition']));
+$config['headlinePosition'] = (100 - $config['subheadingPosition']);
+
+// Validate that the footer is an array
+$config['content']['footer'] = (array)$config['content']['footer'];
+
+// If gzip is enabled, append to the footer if configured
+if ($config['gzip']['enabled'] && $config['gzip']['footer'])
+	$config['content']['footer'][] = (string)$config['gzip']['footer'];
 
 // Calculate footer height
-$config['footerHeight'] = (max(1, substr_count($config['content']['footer'], '<br/>') + substr_count($config['content']['footer'], '<br />')) * 16);
+$config['footerHeight'] = (count($config['content']['footer']) * 16);
 
-// Calculate subheading position
-$config['subheadingPosition'] = (100 - $config['headlinePosition']);
+// If configured to prevent caching, send headers
+if (!$config['allowCache']) {
+	header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+	header("Cache-Control: no-cache");
+	header("Pragma: no-cache");
+}
+
+// Discard any extaneous output
+ob_end_clean();
+
+// If gzip is enabled, start output buffering with compression handler
+if ($config['gzip']['enabled']) ob_start("gzipHandler");
 
 ?><!DOCTYPE html>
 <!--
-	blastyr.net landing page
+	Simple PHP domain landing page
 	Project at	https://github.com/blandin/blastyr.net
 	Forked from	https://github.com/nekinie/nekinie.com
 -->
 <html lang="en">
 	<head>
-		<title>blastyr.net</title>
+		<title><?php echo $config['pageTitle']; ?></title>
 		<meta charset="utf-8"/>
 		<link href="http://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet" type="text/css"/>
 		<style type="text/css">
@@ -118,6 +147,13 @@ $config['subheadingPosition'] = (100 - $config['headlinePosition']);
 	<body>
 		<p id="headline"><?php echo $config['content']['headline']; ?></p>
 		<p id="subheading"><?php echo $config['content']['subheading']; ?></p>
-		<p id="footer"><?php echo $config['content']['footer']; ?></p>
+		<?php
+		if (!empty($config['content']['footer'])) {
+			echo '<p id="footer">' . implode('<br/>', $config['content']['footer']) , '</p>';
+		}
+		?>
 	</body>
-</html>
+</html><?php
+
+// If gzip is enabled, flush compressed output to client
+if ($config['gzip']['enabled']) ob_end_flush();
