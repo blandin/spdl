@@ -70,7 +70,7 @@ ob_end_clean();
 // If gzip is enabled, start output buffering with compression handler
 if ($config['gzip']['enabled']) ob_start("gzipHandler");
 
-?><!DOCTYPE html>
+?><!doctype html>
 <!--
 	Simple PHP domain landing page
 	Project at	https://github.com/blandin/blastyr.net
