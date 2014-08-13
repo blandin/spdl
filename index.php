@@ -2,6 +2,7 @@
 // Configuration defaults
 $config = array(
 	'pageTitle' => $_SERVER['SERVER_NAME'],
+	'customStyle' => '',
 	'content' => array(
 		'headline' => 'Hello. This is my page.',
 		'subheading' => 'There is nothing here yet.',
@@ -142,6 +143,7 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 			.strike {
 				text-decoration: line-through;
 			}
+<?php echo $config['customStyle']; ?>
 		</style>
 	</head>
 	<body>
