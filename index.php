@@ -5,7 +5,7 @@ $config = array(
 	'customStyle' => '',
 	'content' => array(
 		'headline' => 'Hello. This is my page.',
-		'subheading' => 'There is nothing here yet.',
+		'subheading' => array('There is nothing here yet.'),
 		'footer' => array(
 			'Visual page design based on <a href="http://nekinie.com/" target="_blank">nekinie.com</a>.',
 			'The code for this page is on <a href="https://github.com/blandin/blastyr.net" target="_blank">GitHub</a>.',
@@ -46,6 +46,9 @@ function gzipHandler($buffer, $mode) {
 $config['subheadingPosition'] = $config['headlinePosition'];
 $config['subheadingPosition'] = max(10, min(90, (int)$config['subheadingPosition']));
 $config['headlinePosition'] = (100 - $config['subheadingPosition']);
+
+// Validate that subheading is an array
+$config['content']['subheading'] = (array)$config['content']['subheading'];
 
 // Validate that the footer is an array
 $config['content']['footer'] = (array)$config['content']['footer'];
@@ -149,10 +152,10 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 	</head>
 	<body>
 		<p id="headline"><?php echo $config['content']['headline']; ?></p>
-		<p id="subheading"><?php echo $config['content']['subheading']; ?></p>
+		<p id="subheading"><?php echo implode('<br/>', $config['content']['subheading']); ?></p>
 		<?php
 		if (!empty($config['content']['footer'])) {
-			echo '<p id="footer">' . implode('<br/>', $config['content']['footer']) , '</p>';
+			echo '<p id="footer">' . implode('<br/>', $config['content']['footer']) . '</p>';
 		}
 		?>
 	</body>
