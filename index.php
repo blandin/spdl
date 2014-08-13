@@ -8,7 +8,8 @@ $config = array(
 		'subheading' => 'There is nothing here yet.',
 		'footer' => array(
 			'Visual page design based on <a href="http://nekinie.com/" target="_blank">nekinie.com</a>.',
-			'The code for this page is on <a href="https://github.com/blandin/blastyr.net" target="_blank">GitHub</a>.'
+			'The code for this page is on <a href="https://github.com/blandin/blastyr.net" target="_blank">GitHub</a>.',
+			'This page uses <a href="http://validator.w3.org/check?uri=referer" target="_blank">valid HTML5</a>.'
 		)
 	),
 	'backgroundColor' => call_user_func(function () {
