@@ -9,7 +9,7 @@ $config = array(
 		'footer' => array(
 			'Visual page design based on <a href="http://nekinie.com/" target="_blank">nekinie.com</a>.',
 			'The code for this page is on <a href="https://github.com/blandin/blastyr.net" target="_blank">GitHub</a>.',
-			'This page uses <a href="http://validator.w3.org/check?uri=referer" target="_blank">valid HTML5</a>.'
+			'This page uses valid <a href="http://validator.w3.org/check?uri=referer" target="_blank">HTML5</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank">CSS3</a>.'
 		)
 	),
 	'backgroundColor' => call_user_func(function () {
