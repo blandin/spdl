@@ -2,6 +2,7 @@
 // Configuration defaults
 $config = array(
 	'pageTitle' => $_SERVER['SERVER_NAME'],
+	'favicon' => '',
 	'customStyle' => '',
 	'content' => array(
 		'headline' => 'Hello. This is my page.',
@@ -83,6 +84,10 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 	<head>
 		<title><?php echo $config['pageTitle']; ?></title>
 		<meta charset="utf-8"/>
+		<?php
+		if (!empty($config['favicon']))
+			echo '<link href="' . $config['favicon'] . '" rel="icon"/>' . PHP_EOL;
+		?>
 		<link href="http://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet" type="text/css"/>
 		<style type="text/css">
 			body {
@@ -155,7 +160,7 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 		<p id="subheading"><?php echo implode('<br/>', $config['content']['subheading']); ?></p>
 		<?php
 		if (!empty($config['content']['footer'])) {
-			echo '<p id="footer">' . implode('<br/>', $config['content']['footer']) . '</p>';
+			echo '<p id="footer">' . implode('<br/>', $config['content']['footer']) . '</p>' . PHP_EOL;
 		}
 		?>
 	</body>
