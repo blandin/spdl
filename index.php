@@ -8,7 +8,6 @@ $config = array(
 		'headline' => 'Hello. This is my page.',
 		'subheading' => array('There is nothing here yet.'),
 		'footer' => array(
-			'Visual page design based on <a href="http://nekinie.com/" target="_blank">nekinie.com</a>.',
 			'The code for this page is on <a href="https://github.com/blandin/blastyr.net" target="_blank">GitHub</a>.',
 			'This page uses valid <a href="http://validator.w3.org/check?uri=referer" target="_blank">HTML5</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank">CSS3</a>.'
 		)
@@ -30,8 +29,7 @@ $config = array(
 ob_start();
 
 // Load configuration, if it exists
-if (file_exists(dirname(__FILE__) . '/config.php'))
-	include dirname(__FILE__) . '/config.php';
+if ('./config.php') include './config.php';
 
 // Gzip compression handler
 function gzipHandler($buffer, $mode) {
@@ -78,16 +76,12 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 <!--
 	Simple PHP domain landing page
 	Project at	https://github.com/blandin/blastyr.net
-	Forked from	https://github.com/nekinie/nekinie.com
 -->
 <html lang="en">
 	<head>
 		<title><?php echo $config['pageTitle']; ?></title>
 		<meta charset="utf-8"/>
-		<?php
-		if (!empty($config['favicon']))
-			echo '<link href="' . $config['favicon'] . '" rel="icon"/>' . PHP_EOL;
-		?>
+		<?php if (!empty($config['favicon'])) echo '<link href="' . $config['favicon'] . '" rel="icon"/>' . PHP_EOL; ?>
 		<link href="http://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet" type="text/css"/>
 		<style type="text/css">
 			body {
