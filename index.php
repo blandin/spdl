@@ -29,7 +29,7 @@ $config = array(
 ob_start();
 
 // Load configuration, if it exists
-if ('./config.php') include './config.php';
+if (file_exists('./config.php')) include './config.php';
 
 // Gzip compression handler
 function gzipHandler($buffer, $mode) {
