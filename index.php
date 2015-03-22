@@ -20,7 +20,7 @@ $config = array(
 	'allowCache' => true,
 	'gzip' => array(
 		'enabled' => false,
-		'level' => 5,
+		'level' => 9,
 		'footer' => 'Gzip compression enabled.'
 	)
 );
