@@ -3,6 +3,12 @@
 $config = array(
 	'pageTitle' => $_SERVER['SERVER_NAME'],
 	'favicon' => '',
+	'googleFont' => array(
+		'enabled' => true,
+		'name' => 'Vollkorn',
+		'css' => 'http://fonts.googleapis.com/css?family=Vollkorn'
+	),
+	'fontFamily' => 'serif',
 	'customStyle' => '',
 	'content' => array(
 		'headline' => 'Hello. This is my page.',
@@ -39,6 +45,12 @@ function gzipHandler($buffer, $mode) {
 	// Validate configured compression level
 	if ($gzlevel >= 1 && $gzlevel <= 9) $mode = $gzlevel;
 	return ob_gzhandler(trim($buffer), $mode);
+}
+
+// Validate that fontFamily is an array, and prepend Google font if configured
+$config['fontFamily'] = (array)$config['fontFamily'];
+if ($config['googleFont']['enabled']) {
+	array_unshift($config['fontFamily'], "'" . $config['googleFont']['name'] . "'");
 }
 
 // Validate and calculate headline position
@@ -80,16 +92,17 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 <html lang="en">
 	<head>
 		<title><?php echo $config['pageTitle']; ?></title>
-		<meta charset="utf-8"/>
-		<?php if (!empty($config['favicon'])) echo '<link href="' . $config['favicon'] . '" rel="icon"/>' . PHP_EOL; ?>
-		<link href="http://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet" type="text/css"/>
+		<meta charset="utf-8"/><?php
+		if (!empty($config['favicon'])) echo '<link href="' . $config['favicon'] . '" rel="icon"/>' . PHP_EOL;
+		if ($config['googleFont']['enabled'])
+			echo '<link href="' . $config['googleFont']['css'] . '" rel="stylesheet" type="text/css"/>'; ?>
 		<style type="text/css">
 			body {
 				margin: 0px;
 				padding: 0px;
 				background-color: <?php echo $config['backgroundColor']; ?>;
 				color: #FFFFFF;
-				font-family: 'Vollkorn', serif;
+				font-family: <?php echo implode(', ', $config['fontFamily']); ?>;
 				font-size: 16px;
 				line-height: 20px;
 				font-weight: 400;
