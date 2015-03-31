@@ -37,6 +37,7 @@ ob_start();
 // Load configuration, if it exists
 if (file_exists('./config.php')) include './config.php';
 if (isset($config)) $config = array_replace_recursive($defaultConfig, $config);
+else $config = $defaultConfig;
 
 // Gzip compression handler
 function gzipHandler($buffer, $mode) {
