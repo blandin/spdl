@@ -1,6 +1,6 @@
 <?php
 // Configuration defaults
-$config = array(
+$defaultConfig = array(
 	'pageTitle' => $_SERVER['SERVER_NAME'],
 	'favicon' => '',
 	'googleFont' => array(
@@ -36,6 +36,7 @@ ob_start();
 
 // Load configuration, if it exists
 if (file_exists('./config.php')) include './config.php';
+if (isset($config)) $config = array_replace_recursive($defaultConfig, $config);
 
 // Gzip compression handler
 function gzipHandler($buffer, $mode) {
