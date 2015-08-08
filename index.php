@@ -14,7 +14,7 @@ $defaultConfig = array(
 		'headline' => 'Hello. This is my page.',
 		'subheading' => array('There is nothing here yet.'),
 		'footer' => array(
-			'The code for this page is on <a href="https://github.com/blandin/blastyr.net" target="_blank">GitHub</a>.',
+			'The code for this page is on <a href="https://github.com/blandin/spdl" target="_blank">GitHub</a>.',
 			'This page uses valid <a href="http://validator.w3.org/check?uri=referer" target="_blank">HTML5</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank">CSS3</a>.'
 		)
 	),
@@ -89,7 +89,7 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 ?><!doctype html>
 <!--
 	Simple PHP domain landing page
-	Project at	https://github.com/blandin/blastyr.net
+	Project at	https://github.com/blandin/spdl
 -->
 <html lang="en">
 	<head>
