@@ -138,7 +138,7 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 				bottom: 0px;
 				left: calc(50vw - 240px);
 				padding: 10px 0px;
-				height: <?php echo $config['footerHeight']; ?>px;
+				height: <?php echo ($config['footerHeight'] + 20); ?>px;
 				background-color: <?php echo $config['backgroundColor']; ?>;
 				font-size: 12px;
 				line-height: 16px;
