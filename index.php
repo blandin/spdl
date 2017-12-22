@@ -56,9 +56,7 @@ if ($config['googleFont']['enabled']) {
 }
 
 // Validate and calculate headline position
-$config['subheadingPosition'] = $config['headlinePosition'];
-$config['subheadingPosition'] = max(10, min(90, (int)$config['subheadingPosition']));
-$config['headlinePosition'] = (100 - $config['subheadingPosition']);
+$config['headlinePosition'] = max(10, min(90, (int)$config['headlinePosition']));
 
 // Validate that subheading is an array
 $config['content']['subheading'] = (array)$config['content']['subheading'];
@@ -99,6 +97,12 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 		if ($config['googleFont']['enabled'])
 			echo '<link href="' . $config['googleFont']['css'] . '" rel="stylesheet" type="text/css"/>'; ?>
 		<style type="text/css">
+			html {
+				margin: 0px;
+				padding: 0px;
+				box-sizing: border-box;
+			}
+			*, *::before, *::after { box-sizing: inherit; }
 			body {
 				margin: 0px;
 				padding: 0px;
@@ -118,23 +122,21 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 			}
 			p#headline {
 				position: absolute;
-				bottom: <?php echo $config['headlinePosition']; ?>vh;
-				left: 50vw;
-				margin: 0px 0px 0px -240px;
+				bottom: <?php echo (100 - $config['headlinePosition']); ?>vh;
+				left: calc(50vw - 240px);
 				font-size: 26px;
 				line-height: 30px;
 			}
 			p#subheading {
 				position: absolute;
-				top: <?php echo $config['subheadingPosition']; ?>vh;
-				left: 50vw;
-				margin: 0px 0px <?php echo ($config['footerHeight'] + 20); ?>px -240px;
+				top: <?php echo $config['headlinePosition']; ?>vh;
+				left: calc(50vw - 240px);
+				margin-bottom: <?php echo ($config['footerHeight'] + 20); ?>px;
 			}
 			p#footer {
 				position: fixed;
 				bottom: 0px;
-				left: 50vw;
-				margin: 0px 0px 0px -240px;
+				left: calc(50vw - 240px);
 				padding: 10px 0px;
 				height: <?php echo $config['footerHeight']; ?>px;
 				background-color: <?php echo $config['backgroundColor']; ?>;
