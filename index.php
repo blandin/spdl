@@ -96,7 +96,7 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 		if (!empty($config['favicon'])) echo '<link href="' . $config['favicon'] . '" rel="icon"/>' . PHP_EOL;
 		if ($config['googleFont']['enabled'])
 			echo '<link href="' . $config['googleFont']['css'] . '" rel="stylesheet" type="text/css"/>'; ?>
-		<style type="text/css">
+		<style>
 			html {
 				margin: 0px;
 				padding: 0px;
