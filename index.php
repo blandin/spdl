@@ -1,4 +1,7 @@
 <?php
+// Build an absolute URL so we have it for validator links
+$this_url = 'http' . (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
 // Configuration defaults
 $defaultConfig = array(
 	'pageTitle' => $_SERVER['SERVER_NAME'],
@@ -15,7 +18,7 @@ $defaultConfig = array(
 		'subheading' => array('There is nothing here yet.'),
 		'footer' => array(
 			'The code for this page is on <a href="https://github.com/blandin/spdl" target="_blank">GitHub</a>.',
-			'This page uses valid <a href="http://validator.w3.org/check?uri=referer" target="_blank">HTML5</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank">CSS3</a>.'
+			'This page uses valid <a href="http://validator.w3.org/check?uri=' . urlencode($this_url) . '" target="_blank">HTML5</a> and <a href="https://jigsaw.w3.org/css-validator/validator?uri=' . urlencode($this_url) . '" target="_blank">CSS3</a>.'
 		)
 	),
 	'backgroundColor' => call_user_func(function () {
