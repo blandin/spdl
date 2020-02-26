@@ -125,7 +125,7 @@ if ($config['gzip']['enabled']) ob_start("gzipHandler");
 			}
 			p#headline {
 				position: absolute;
-				bottom: <?php echo (100 - $config['headlinePosition']); ?>vh;
+				bottom: calc(100% - <?php echo $config['headlinePosition']; ?>vh);
 				left: calc(50vw - 240px);
 				font-size: 26px;
 				line-height: 30px;
